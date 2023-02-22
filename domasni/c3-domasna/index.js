@@ -36,51 +36,110 @@ studenti2.sort((a, b) => {
 
 // 3. Првите 3 студенти кои имаат имиња од 5 карактери, подредени по просек.
 
+let studenti3 = studenti.filter((student) => {
+  return (student.ime.length < 6);
+});
+
+studenti3.sort((a, b) => {
+  if (a.prosek < b.prosek) return 1;
+  if (a.prosek > b.prosek) return -1;
+});
+
+studenti3.slice(0, 3);
+
+// studenti3.reverse();
+
+// for (let i = 4; i < studenti3.length; i++) {
+//   console.log(studenti3[i]);
+// };
+
+// console.log(studenti3.slice(0, 3));
+
+
+
 // 4. Градови подредени по групна висина на просек.
 
-// let studenti4 = studenti.reduce((prosek, s) => {
-//   return (prosek + s.prosek && prosek.grad === 'Skopje');
-// }, 0);
 
-// let studenti4 = studenti.filter((student) => {
-//   return student.prosek > 1;
-// });
+let studentiGradSort = studenti.sort((a, b) => {
+  if (a.grad < b.grad) return -1;
+  if (a.grad > b.grad) return 1;
+  return 0;
+});
 
 let studentiGrad1 = studenti.filter((student) => {
-  return(student.grad === 'Skopje');
+  return (student.grad === 'Skopje');
 });
+
+let prosekGrad1 = studentiGrad1.reduce((acc, v) => {
+  return acc + v.prosek;
+}, 0);
+
+console.log(prosekGrad1);
+
+// console.log(studentiGrad1);
 
 let studentiGrad2 = studenti.filter((student) => {
-  return(student.grad === 'Bitola');
+  return (student.grad === 'Bitola');
 });
 
-// let studentiGrad3 = studenti.filter((student) => {
-//   return(student.grad === 'Kumanovo');
-// });
+// console.log(studentiGrad2);
 
-// let studentiGrad4 = studenti.filter((student) => {
-//   return(student.grad === 'Tetovo');
-// });
+let studentiGrad3 = studenti.filter((student) => {
+  return(student.grad === 'Kumanovo');
+});
 
-// let studentiGrad5 = studenti.filter((student) => {
-//   return(student.grad === 'Strumica');
-// });
+// console.log(studentiGrad3);
 
-// let studentiGrad6 = studenti.filter((student) => {
-//   return(student.grad === 'Ohrid');
-// });
+let studentiGrad4 = studenti.filter((student) => {
+  return(student.grad === 'Tetovo');
+});
 
-const studentiGrad = studentiGrad1 + studentiGrad2;
+// console.log(studentiGrad4);
 
-for (let i = 0; i < studentiGrad.length; i++) {
-  console.log(studentiGrad);
-}
+let studentiGrad5 = studenti.filter((student) => {
+  return(student.grad === 'Strumica');
+});
 
-studenti.len
+// console.log(studentiGrad5);
+
+let studentiGrad6 = studenti.filter((student) => {
+  return(student.grad === 'Ohrid');
+});
+
+// console.log(studentiGrad6);
+
+let mergeArr = studentiGrad1.concat(studentiGrad2.concat(studentiGrad3.concat(studentiGrad4.concat(studentiGrad5.concat(studentiGrad6)))));
+
+// console.log(mergeArr);
 
 
+// 5. Вкупен просек на студенти чие име завршува на а наспроти сите останати.
 
+let studenti5a = studenti.filter((student) => {
+  return student.ime.endsWith('a');
+});
 
+// console.log(studenti5);
 
+let prosekA = studenti5a.reduce((acc, v) => {
+  return acc + v.prosek;
+}, 0);
 
-// console.log(studentiGrad1 + studentiGrad2 + studentiGrad3 + studentiGrad4 + studentiGrad5 + studentiGrad6);
+// console.log(prosekA);
+
+let studenti5b = studenti.filter((student) => {
+  return !student.ime.endsWith('a');
+});
+
+// console.log(studenti5b);
+
+let prosekB = studenti5b.reduce((acc, v) => {
+  return acc + v.prosek;
+}, 0);
+
+// console.log(typeof prosekB);
+// console.log(Math.round(prosekB));
+
+// let newArrProsek = [prosekA, (Math.round(prosekB))];
+
+console.log(`Vkupen prosek na studenti sto ime zavrsuva na 'a' e: ${Math.round(prosekA)}, sprema ${Math.round(prosekB)}`);
