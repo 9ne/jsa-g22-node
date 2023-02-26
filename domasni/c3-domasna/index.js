@@ -18,6 +18,12 @@ let studenti1 = studenti.filter((student) => {
   return (student.grad === 'Skopje' && student.ime.endsWith('a') && student.prosek > 7) 
 });
 
+studenti1.sort((a, b) => {
+  if (a.ime < b.ime) return 1;
+  if (a.ime > b.ime) return -1;
+  if (a.ime === b.ime) return 0;
+});
+
 // console.log(studenti1);
 
 // 2. Сите студенти кои имаат просек над 9 и не се од Скопје, подредени по просек опаѓачки.
@@ -74,7 +80,7 @@ let prosekGrad1 = studentiGrad1.reduce((acc, v) => {
   return acc + v.prosek;
 }, 0);
 
-console.log(prosekGrad1);
+// console.log(prosekGrad1);
 
 // console.log(studentiGrad1);
 
@@ -142,4 +148,43 @@ let prosekB = studenti5b.reduce((acc, v) => {
 
 // let newArrProsek = [prosekA, (Math.round(prosekB))];
 
-console.log(`Vkupen prosek na studenti sto ime zavrsuva na 'a' e: ${Math.round(prosekA)}, sprema ${Math.round(prosekB)}`);
+// console.log(`Vkupen prosek na studenti sto ime zavrsuva na 'a' e: ${Math.round(prosekA)}, sprema ${Math.round(prosekB)}`);
+
+
+
+
+// ===================================================================================================================
+
+// 4. Градови подредени по групна висина на просек.
+
+let set = [];
+
+for (let i = 0; i < studenti.length; i++) {
+  if (!set.includes(studenti[i].grad)) {
+    set.push(studenti[i].grad);
+  }
+};
+
+
+// let set = new Set(studenti.map(s => s.grad));
+
+// console.log(set);
+let res = Array.from(set).map(g => {
+  let sbroj = studenti.filter(s => s.grad === g).length; // kolku studenti se od odreden grad
+  let svkupno = studenti.reduce((acc, v) => {
+    if (v.grad === g) { // dali studentot e od odreden grad
+      return acc + v.prosek; // go sobirame prosekot so prosecite na studentite od istiot grad
+    }
+    return acc; // vrati ja predhodnata sostojba
+  }, 0);
+  return {
+    grad: g,
+    prosek: svkupno / sbroj
+  };
+}).sort((a, b) => {
+  if (a.prosek > b.prosek) return -1;
+  if (a.prosek < b.prosek) return 1;
+  if (a.prosek === b.prosek) return 0;
+});
+
+console.log(res);
