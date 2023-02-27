@@ -56,39 +56,125 @@ const fs = require('fs');
 // let writeFile = fs.writeFileSync('data.json', jsonArray);
 // console.log(writeFile);
 
-let getAllStudent = () => {
+// READ FILE
+
+const allStudent = () => {
   return new Promise((success, fail) => {
     fs.readFile('data.json', 'utf-8', (err, data) =>{
-      if(err) return console.log(fail);
-      return success(data);
+      if(err) return fail(err);
+      return success(JSON.parse(data));
     });
   });
 };
 
-// const getAllStudent = async () => {
-//   try {
-//     let readFile2 = await readFile();
-//     console.log(readFile2);
-//   } catch (err) {
-//     console.log(err)
-//   };
-// };
-
-(async () => {
+const getAllStudent = async () => {
   try {
-    let promise = await getAllStudent();
-    console.log(promise);
+    let readFile2 = await allStudent();
+    console.log(readFile2);
+  } catch (err) {
+    console.log(err)
+  };
+};
+
+getAllStudent();
+
+// ADD OBJ TO ARRAY
+
+const insertStudent = (data) => {
+  return new Promise ((success, fail) => {
+    fs.writeFile('data.json', JSON.stringify(data), (err) => {
+      if (err) return fail(err);
+      return success();
+    });
+  });
+};
+
+const student = async (element) => {
+  try {
+    let studentArr =  await allStudent();
+    // console.log(studentArr);
+    studentArr.push(element);
+    // console.log(newArr);
+    await insertStudent(studentArr);
+    console.log(studentArr);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+// student({ime: "Pero", prezime: "Perovski", prosek: 9.2, grad: "Bitola"});
+
+
+const modifyStudent = async (num, data) => {
+  try {
+    let newSTudent =  await allStudent();
+    let newArr = newSTudent.map((s, index) => num === index ? data : s);
+    await insertStudent(newArr);
+    console.log(newSTudent);
+    console.log(newArr);
   } catch (err) {
     console.log(err);
   };
-})();
+};
 
-getAllStudent();
-// console.log();
-// console.log(read());
-// read();
+// modifyStudent(0, {ime: "Pero", prezime: "Perovski", prosek: 8.1, grad: "Bitola"});
 
-// (async () =>{
-//   let student = await getAllStudent();
-//   console.log(student);
-// })
+const deleteStudent = async (num) => {
+  try {
+    let newStudent = await allStudent();
+    console.log(newStudent);
+    let newStudentUp = newStudent.filter((element, index) => index !== num);
+    console.log(newStudentUp);
+    await insertStudent(newStudentUp)
+  } catch (err) {
+    console.log(err);
+  };
+};
+
+deleteStudent(0);
+
+// const arr = [];
+// const obj = {ime: "Pero", prezime: "Perovski", prosek: 9.2, grad: "Bitola"};
+// arr.push(obj);
+
+// let data = arr;
+
+// const student = (filename, data) => {
+//   return new Promise ((success, fail) => {
+//     fs.writeFile(filename, JSON.stringify(data), (err) => {
+//       if (err) return fail;
+//       return success(data)
+//     });
+//   });
+// };
+
+// const insertStudent = async () => {
+//   try {
+//    let newStudent = await student('data.json', data); 
+//    console.log(newStudent);
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
+
+// insertStudent();
+
+// const modifyStudent = async (broj, podatoci) => {
+//   try {
+//     let student = await allStudent('data.json');
+//     let student1 = student.map((s, index) => broj === index ? podatoci : s);
+//     console.log(student1);
+//   } catch (err) {
+//     console.log(err);
+//   }
+// }
+
+// modifyStudent(0, 'dsadas');
+
+
+
+
+
+
+
+
