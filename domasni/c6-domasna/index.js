@@ -6,17 +6,17 @@ const handler = (req, res) => {
 
   let ime = name.length - 1;
   let even = ime % 2 === 0;
-  let samooglaski = name.split('').filter((n) => {
-    return ['a', 'e', 'i', 'o', 'u'].includes(n)
+
+  let arr = ['a', 'i', 'e', 'o', 'u']
+  const samooglaski = name.split('').filter((n) => {
+  return arr.includes(n);
   });
   let sooglaski = name.split('').filter((n) => {
-    return !['a', 'e', 'i', 'o', 'u'].includes(n)
+    return !arr.includes(n);
   });
 
   res.end(`Imeto ima ${ime} karakteri i brojot na karakteri e paren: ${even ? 'da' : 'ne'}, ima ${samooglaski.length} samooglaski i ima ${sooglaski.length - 1} soglaski`);
 };
-
-
 
 const server = http.createServer(handler);
 
@@ -29,13 +29,13 @@ server.listen(10000, err => {
 
 
 
-let name = 'martin'
-let arr = ['a', 'i', 'e', 'o', 'u']
+// let name = 'martin'
+// let arr = ['a', 'i', 'e', 'o', 'u']
 
-const samooglaski = name.split('').filter((n) => {
-  return 
-});
-console.log(samooglaski);
+// const samooglaski = name.split('').filter((n) => {
+//   return arr.includes(n)
+// });
+// console.log(samooglaski);
 
 // const name = 'martin'; 
 
