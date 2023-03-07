@@ -74,7 +74,7 @@ const appendFile = (filename, data) => {
 const file = (filename) => {
   return new Promise((success, fail) => {
     fs.readFile(filename, 'utf-8',  (err, data) => {
-      if (err) return console.log(fail);
+      if (err) return fail(err);
       return success(data)
     });
   });

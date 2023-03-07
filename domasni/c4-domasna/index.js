@@ -120,15 +120,11 @@ const modifyStudent = async (num, data) => {
 // modifyStudent(0, {ime: "Pero", prezime: "Perovski", prosek: 8.1, grad: "Bitola"});
 
 const deleteStudent = async (num) => {
-  try {
-    let newStudent = await allStudent();
-    console.log(newStudent);
-    let newStudentUp = newStudent.filter((element, index) => index !== num);
-    console.log(newStudentUp);
-    await insertStudent(newStudentUp)
-  } catch (err) {
-    console.log(err);
-  };
+  let newStudent = await allStudent();
+  console.log(newStudent);
+  let newStudentUp = newStudent.filter((element, index) => index !== num);
+  console.log(newStudentUp);
+  await insertStudent(newStudentUp)
 };
 
 deleteStudent(0);
