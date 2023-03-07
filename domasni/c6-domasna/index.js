@@ -8,14 +8,14 @@ const handler = (req, res) => {
   let even = ime % 2 === 0;
 
   let arr = ['a', 'i', 'e', 'o', 'u']
-  const samooglaski = name.split('').filter((n) => {
+  let samooglaski = name.split('').filter((n) => {
   return arr.includes(n);
   });
   let sooglaski = name.split('').filter((n) => {
     return !arr.includes(n);
   });
 
-  res.end(`Imeto ima ${ime} karakteri i brojot na karakteri e paren: ${even ? 'da' : 'ne'}, ima ${samooglaski.length} samooglaski i ima ${sooglaski.length - 1} soglaski`);
+  res.end(`Imeto ima ${ime} karakteri i brojot na karakteri e paren: ${even ? 'da' : 'ne'}, ima: ${samooglaski.length} samooglaski i ima: ${sooglaski.length - 1} soglaski`);
 };
 
 const server = http.createServer(handler);
