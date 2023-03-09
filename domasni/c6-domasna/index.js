@@ -2,23 +2,24 @@ const http = require('http');
 
 const handler = (req, res) => {
 
+
   const [_, name] = req.url.split('/ime');
+  
+  console.log(_, name)
 
-  let ime = name.length - 1;
-  let even = ime % 2 === 0;
+  const ime = name.slice(1)
+  
+  const even = ime.length % 2 === 0;
+  const arr = ['a', 'i', 'e', 'o', 'u'];
+  const samooglaski = ime.split('').filter(n => arr.includes(n)).length;
+  
+  const sooglaski = ime.length - samooglaski
 
-  let arr = ['a', 'i', 'e', 'o', 'u']
-  let samooglaski = name.split('').filter((n) => {
-  return arr.includes(n);
-  });
-  let sooglaski = name.split('').filter((n) => {
-    return !arr.includes(n);
-  });
-
-  res.end(`Imeto ima ${ime} karakteri i brojot na karakteri e paren: ${even ? 'da' : 'ne'}, ima: ${samooglaski.length} samooglaski i ima: ${sooglaski.length - 1} soglaski`);
+  res.end(`Imeto ima ${ime} karakteri i brojot na karakteri e paren: ${even ? 'da' : 'ne'}, ima: ${samooglaski} samooglaski i ima: ${sooglaski} soglaski`);
 };
 
 const server = http.createServer(handler);
+
 
 server.listen(10000, err => {
   if (err) return console.log(err);
@@ -26,8 +27,11 @@ server.listen(10000, err => {
 });
 
 
-
-
+// ova e drug nacin na definiranje na samoglaski ovaa funkcija e za gore odma pod samooglaski dojde lebedov i mi smeni
+  // console.log(samooglaski);
+  // let sooglaski = ime.split('').filter((n) => {
+  //   return !arr.includes(n);
+  // });
 
 // let name = 'martin'
 // let arr = ['a', 'i', 'e', 'o', 'u']
