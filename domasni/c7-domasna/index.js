@@ -16,7 +16,7 @@ app.get('/ime/:name', (req, res) => {
   const samooglaski = ime.split('').filter((n) => arr.includes(n));
   const sooglaski = ime.split('').filter((n) => !arr.includes(n));
 
-  res.send(`Imeto ima ${name.length} karakteri i brojot na karakteri e paren: ${even ? 'da' : 'ne'}, ima: ${samooglaski.length} samooglaski i ima: ${sooglaski.length - 1} soglaski`);
+  res.send(`Imeto ima ${name.length} karakteri i brojot na karakteri e paren: ${even ? 'da' : 'ne'}, ima: ${samooglaski.length} samooglaski i ima: ${sooglaski.length} soglaski`);
 
 });
 
