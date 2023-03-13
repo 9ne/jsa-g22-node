@@ -17,17 +17,18 @@ const parseData = async (template, data) => {
   });
 };
 
-
-const getForm = async (req, res) => {
+app.get(`${__dirname}/views/form`, async (req, res) => {
+  
+  let result = '';
   try {
-    let output = await parseData('form', '');
+    let output = await parseData('form', result);
     res.send(output);
   } catch (err) {
     console.log(err);
   }
-};
+});
 
-const postAnaliza = async (req, res) => {
+app.post('/analiza', async (req, res) => {
 
   const recenica = req.body.recenica;
   const zborovi = recenica.length; // broj na bukvi
@@ -51,16 +52,55 @@ const postAnaliza = async (req, res) => {
   } catch (err) {
     console.log(err);
   }
-};
 
-app.get('form', getForm);
-app.post('analiza', postAnaliza);
+});
 
 
 app.listen(10000, err => {
   if(err) return console.log(err);
   console.log('Server started');
 });
+
+
+
+
+// const postAnaliza = async (req, res) => {
+
+//   const recenica = req.body.recenica;
+//   const zborovi = recenica.length; // broj na bukvi
+
+//   const zbor = recenica.split(' ').filter((z) => z.length < 5); // broj na zborovi so pomal broj na karkteri od 5
+  
+//   const zbor2 = recenica.split(' ').filter((z) => z.length > 5); // broj na zborovi so pogolem broj na karakteri od 5
+  
+//   const zbor3 = recenica.split(' ').filter((z) => z.length === 5); // broj na zborovi so ednakov broj na karakteri od 5
+
+//   const arr = ['a', 'e', 'i', 'o', 'u'];
+//   // const zborPocnuva = brojNaZborovi.filter((z) => arr.includes(z[0])).length;
+//   for (let zbor of brojNaZborovi) {
+//     // console.log(zbor[1]);
+//     arr.includes(zbor[0]).length;
+//   }
+
+//   try {
+//     let output = await parseData('form', result);
+//     res.send(output);
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
+
+// const getForm = async (req, res) => {
+//   try {
+//     let output = await parseData('form', '');
+//     res.send(output);
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
+
+// app.get('form', getForm);
+// app.post('analiza', postAnaliza);
 
 
 
