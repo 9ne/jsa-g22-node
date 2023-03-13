@@ -17,7 +17,7 @@ const parseData = async (template, data) => {
   });
 };
 
-app.get(`${__dirname}/views/form`, async (req, res) => {
+app.get('/form', async (req, res) => {
 
   try {
     let output = await parseData('form', '');
@@ -29,21 +29,23 @@ app.get(`${__dirname}/views/form`, async (req, res) => {
 
 app.post('/analiza', async (req, res) => {
 
-  let text = req.body.recenica;
-  const zborovi = recenica.length; // broj na bukvi
+  let text = req.body.text;
+  const zborovi = text.split(' '); 
 
-  const zbor = recenica.split(' ').filter((z) => z.length < 5); // broj na zborovi so pomal broj na karkteri od 5
+  const zbor = zborovi.filter((z) => z.length < 5); // broj na zborovi so pomal broj na karkteri od 5
   
-  const zbor2 = recenica.split(' ').filter((z) => z.length > 5); // broj na zborovi so pogolem broj na karakteri od 5
+  const zbor2 = zborovi.filter((z) => z.length > 5); // broj na zborovi so pogolem broj na karakteri od 5
   
-  const zbor3 = recenica.split(' ').filter((z) => z.length === 5); // broj na zborovi so ednakov broj na karakteri od 5
+  const zbor3 = zborovi.filter((z) => z.length === 5); // broj na zborovi so ednakov broj na karakteri od 5
 
   const arr = ['a', 'e', 'i', 'o', 'u'];
-  const zborPocnuva = brojNaZborovi.filter((z) => arr.includes(z[0])).length;
-  // for (let zbor of brojNaZborovi) {
-  //   // console.log(zbor[1]);
-  //   arr.includes(zbor[0]).length;
-  // }
+  // const zborPocnuva = brojNaZborovi.filter((z) => arr.includes(z[0])).length;
+  let count = 0;
+  for (let zbor of zborovi) {
+    // console.log(zbor[1]);
+    arr.includes(zbor[0]);
+    count++;
+  }
 
   try {
     let output = await parseData('analiza', text);
@@ -59,45 +61,20 @@ app.listen(10000, err => {
 });
 
 
+// let zborovi = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae similique quia dolores voluptatibus eius, impedit dicta minus nihil beatae in dasda?'
 
+// let zboroviP = zborovi.split(' ');
+// console.log(zboroviP);
 
-// const postAnaliza = async (req, res) => {
-
-//   const recenica = req.body.recenica;
-//   const zborovi = recenica.length; // broj na bukvi
-
-//   const zbor = recenica.split(' ').filter((z) => z.length < 5); // broj na zborovi so pomal broj na karkteri od 5
-  
-//   const zbor2 = recenica.split(' ').filter((z) => z.length > 5); // broj na zborovi so pogolem broj na karakteri od 5
-  
-//   const zbor3 = recenica.split(' ').filter((z) => z.length === 5); // broj na zborovi so ednakov broj na karakteri od 5
-
-//   const arr = ['a', 'e', 'i', 'o', 'u'];
-//   // const zborPocnuva = brojNaZborovi.filter((z) => arr.includes(z[0])).length;
-//   for (let zbor of brojNaZborovi) {
+// const arr = ['a', 'e', 'i', 'o', 'u'];
+// let count = 0;
+//   for (let zbor of zboroviP) {
 //     // console.log(zbor[1]);
-//     arr.includes(zbor[0]).length;
+//     arr.includes(zbor[0]);
+//     count++;
 //   }
 
-//   try {
-//     let output = await parseData('form', result);
-//     res.send(output);
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
-
-// const getForm = async (req, res) => {
-//   try {
-//     let output = await parseData('form', '');
-//     res.send(output);
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
-
-// app.get('form', getForm);
-// app.post('analiza', postAnaliza);
+// console.log(count);
 
 
 
@@ -139,42 +116,35 @@ app.listen(10000, err => {
 
 
 
+// const recenica = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae similique quia dolores voluptatibus eius, impedit dicta minus nihil beatae in dasda?';
+
+// const zborovi = recenica.length;
+// const zbor = recenica.split(' ').filter((z) => {
+//   return z.length < 5;
+// });
+
+// const zbor2 = recenica.split(' ').filter((z) => {
+//   return z.length > 5;
+// });
+
+// const zbor3 = recenica.split(' ').filter((z) => {
+//   return z.length === 5;
+// });
+
+// const recenici = recenica.split('.').length;
+// const brojNaRecenici = recenici.length;
+// const brojNaZborovi  = recenica.split(' ');//length na kraj
 
 
+// const arr = ['a', 'e', 'i', 'o', 'u'];
+// const zborPocnuva = brojNaZborovi.filter((z) => arr.includes(z[0])).length;
 
+// // for (let zbor of brojNaZborovi) {
+// //   // console.log(zbor[1]);
+// //   console.log(arr.includes(zbor[0]));
+// // }
 
-
-
-
-const recenica = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae similique quia dolores voluptatibus eius, impedit dicta minus nihil beatae in dasda?';
-
-const zborovi = recenica.length;
-const zbor = recenica.split(' ').filter((z) => {
-  return z.length < 5;
-});
-
-const zbor2 = recenica.split(' ').filter((z) => {
-  return z.length > 5;
-});
-
-const zbor3 = recenica.split(' ').filter((z) => {
-  return z.length === 5;
-});
-
-const recenici = recenica.split('.').length;
-const brojNaRecenici = recenici.length;
-const brojNaZborovi  = recenica.split(' ');//length na kraj
-
-
-const arr = ['a', 'e', 'i', 'o', 'u'];
-const zborPocnuva = brojNaZborovi.filter((z) => arr.includes(z[0])).length;
-
-// for (let zbor of brojNaZborovi) {
-//   // console.log(zbor[1]);
-//   console.log(arr.includes(zbor[0]));
-// }
-
-console.log(zborPocnuva);
+// console.log(zborPocnuva);
 
 
 // const count = brojNaZborovi.filter(word => /^[aeiou]/i.test(word)).length;
