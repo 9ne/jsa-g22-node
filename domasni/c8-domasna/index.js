@@ -18,10 +18,9 @@ const parseData = async (template, data) => {
 };
 
 app.get(`${__dirname}/views/form`, async (req, res) => {
-  
-  let result = '';
+
   try {
-    let output = await parseData('form', result);
+    let output = await parseData('form', '');
     res.send(output);
   } catch (err) {
     console.log(err);
@@ -30,7 +29,7 @@ app.get(`${__dirname}/views/form`, async (req, res) => {
 
 app.post('/analiza', async (req, res) => {
 
-  const recenica = req.body.recenica;
+  let text = req.body.recenica;
   const zborovi = recenica.length; // broj na bukvi
 
   const zbor = recenica.split(' ').filter((z) => z.length < 5); // broj na zborovi so pomal broj na karkteri od 5
@@ -40,21 +39,19 @@ app.post('/analiza', async (req, res) => {
   const zbor3 = recenica.split(' ').filter((z) => z.length === 5); // broj na zborovi so ednakov broj na karakteri od 5
 
   const arr = ['a', 'e', 'i', 'o', 'u'];
-  // const zborPocnuva = brojNaZborovi.filter((z) => arr.includes(z[0])).length;
-  for (let zbor of brojNaZborovi) {
-    // console.log(zbor[1]);
-    arr.includes(zbor[0]).length;
-  }
+  const zborPocnuva = brojNaZborovi.filter((z) => arr.includes(z[0])).length;
+  // for (let zbor of brojNaZborovi) {
+  //   // console.log(zbor[1]);
+  //   arr.includes(zbor[0]).length;
+  // }
 
   try {
-    let output = await parseData('form', result);
+    let output = await parseData('analiza', text);
     res.send(output);
   } catch (err) {
     console.log(err);
   }
-
 });
-
 
 app.listen(10000, err => {
   if(err) return console.log(err);
