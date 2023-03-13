@@ -10,11 +10,11 @@ app.get('/ime/:name', (req, res) => {
   console.log(name);
   
   const even = name % 2 === 0;
-  const ime = name.slice(1);
+  // const ime = name.slice(1); ne raboti
 
   const arr = ['a', 'i', 'e', 'o', 'u']
-  const samooglaski = ime.split('').filter((n) => arr.includes(n));
-  const sooglaski = ime.split('').filter((n) => !arr.includes(n));
+  const samooglaski = name.split('').filter((n) => arr.includes(n));
+  const sooglaski = name.split('').filter((n) => !arr.includes(n));
 
   res.send(`Imeto ima ${name.length} karakteri i brojot na karakteri e paren: ${even ? 'da' : 'ne'}, ima: ${samooglaski.length} samooglaski i ima: ${sooglaski.length} soglaski`);
 
