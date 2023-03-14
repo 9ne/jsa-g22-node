@@ -32,18 +32,18 @@ app.post('/analiza', async (req, res) => {
   let text = req.body.text;
   const zborovi = text.split(' '); 
   const recenici = text.split(/[.,?,!]/).length;
-  console.log(recenici);
+  // console.log(recenici);
   const brojPomalOdPet = zborovi.filter((z) => z.length < 5).length;
   const brojPogolemOdPet = zborovi.filter((z) => z.length > 5).length; 
   const brojNaZboroviEdnakvi = zborovi.filter((z) => z.length === 5).length; 
-  const arr = ['a', 'e', 'i', 'o', 'u'];
-  const zborPocnuva = zborovi.filter((z) => arr.includes(z[0])).length;
-  console.log(zborPocnuva);
+  const samooglaski = ['a', 'e', 'i', 'o', 'u'];
+  const zborPocnuva = zborovi.filter((z) => samooglaski.includes(z[0])).length;
+  // console.log(zborPocnuva);
  
-  const brojkiTrebaDaprikaze = `Zborovi pomali od zbir na pet karakteri: ${brojPomalOdPet}, zborovi pogolemi od zbir na pet karakteri: ${brojPogolemOdPet}, zborovi cij zbir na karakteri e ednakov na pet: ${brojNaZboroviEdnakvi}, zborovi sto pocnuvaat so samooglaska: ${zborPocnuva} i broj na recenici vo tekstot: ${recenici}`;
+  const finalnaAnaliza = `Zborovi pomali od zbir na pet karakteri: ${brojPomalOdPet}, zborovi pogolemi od zbir na pet karakteri: ${brojPogolemOdPet}, zborovi cij zbir na karakteri e ednakov na pet: ${brojNaZboroviEdnakvi}, zborovi sto pocnuvaat so samooglaska: ${zborPocnuva} i broj na recenici vo tekstot: ${recenici}`;
   
   try {
-    let output = await parseData('analiza', brojkiTrebaDaprikaze);
+    let output = await parseData('analiza', finalnaAnaliza);
     console.log(output)
     res.send(output);
   } catch (err) {
