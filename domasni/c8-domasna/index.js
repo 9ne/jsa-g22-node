@@ -18,7 +18,7 @@ const parseData = async (template, data) => {
 };
 
 app.get('/form', async (req, res) => {
-
+  
   try {
     let output = await parseData('form', '');
     res.send(output);
@@ -31,24 +31,20 @@ app.post('/analiza', async (req, res) => {
 
   let text = req.body.text;
   const zborovi = text.split(' '); 
-
-  const zbor = zborovi.filter((z) => z.length < 5); // broj na zborovi so pomal broj na karkteri od 5
-  
-  const zbor2 = zborovi.filter((z) => z.length > 5); // broj na zborovi so pogolem broj na karakteri od 5
-  
-  const zbor3 = zborovi.filter((z) => z.length === 5); // broj na zborovi so ednakov broj na karakteri od 5
-
+  const recenici = text.split(/[.,?,!]/).length;
+  console.log(recenici);
+  const brojPomalOdPet = zborovi.filter((z) => z.length < 5).length;
+  const brojPogolemOdPet = zborovi.filter((z) => z.length > 5).length; 
+  const brojNaZboroviEdnakvi = zborovi.filter((z) => z.length === 5).length; 
   const arr = ['a', 'e', 'i', 'o', 'u'];
-  // const zborPocnuva = brojNaZborovi.filter((z) => arr.includes(z[0])).length;
-  let count = 0;
-  for (let zbor of zborovi) {
-    // console.log(zbor[1]);
-    arr.includes(zbor[0]);
-    count++;
-  }
-
+  const zborPocnuva = zborovi.filter((z) => arr.includes(z[0])).length;
+  console.log(zborPocnuva);
+ 
+  const brojkiTrebaDaprikaze = `Zborovi pomali od zbir na pet karakteri: ${brojPomalOdPet}, zborovi pogolemi od zbir na pet karakteri: ${brojPogolemOdPet}, zborovi cij zbir na karakteri e ednakov na pet: ${brojNaZboroviEdnakvi}, zborovi sto pocnuvaat so samooglaska: ${zborPocnuva} i broj na recenici vo tekstot: ${recenici}`;
+  
   try {
-    let output = await parseData('analiza', text);
+    let output = await parseData('analiza', brojkiTrebaDaprikaze);
+    console.log(output)
     res.send(output);
   } catch (err) {
     console.log(err);
@@ -75,6 +71,9 @@ app.listen(10000, err => {
 //   }
 
 // console.log(count);
+
+
+
 
 
 
